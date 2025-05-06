@@ -1,9 +1,8 @@
 <?php
-$salario = (int) $_GET ["salario"];
 
- $desconto = $salario * 0.11;
+$salario = (float) $_GET['salario'];
 
- $salariodescontado = $salario - $desconto
+$desconto = $salario * 0.11;
+$salarioLiquido = $salario - $desconto;
 
- echo "salario:" $salario . "<br>"
-  
+echo "Salario: $salario, Desconto: $desconto, Salario Líquido: $salarioLiquido";
