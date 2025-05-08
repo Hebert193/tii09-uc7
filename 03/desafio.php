@@ -1,7 +1,14 @@
 <?php
 $clientes = [
-    ["nome"=> "Fulano", "cpf"=> "154687164-15", "SP"],
-    ["nome"=> "Fabio", "cpf"=> "154687164-10", "RJ"]
+    [
+    "nome"=> "Fulano",
+    "cpf"=> "154687164-15",
+    "cidade"=> "SP"],
+
+    [
+    "nome"=> "Fabio",
+    "cpf"=> "154687164-10",
+    "cidade"=> "RJ"]
 ];
 
 foreach ($clientes as $cli){
