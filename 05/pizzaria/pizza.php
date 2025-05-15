@@ -2,7 +2,7 @@
 
 class Pizza
 {
-    private int $id;
+    private $id;
     private string $sabor;
     private string $tamanho;
     private float $preco;
@@ -15,14 +15,26 @@ class Pizza
         $this->preco = $preco;
     }
 
+    public function getId(): float
+    {
+        return $this->id;
+    }
+    public function getSabor(): string
+    {
+        return $this->sabor;
+    }
+    public function getTamanho(): string
+    {
+        return $this->tamanho;
+    }
+    public function getPreco(): float
+    {
+        return $this->preco;
+    }
 
-    public function getId(): float { return $this->id; }
-    public function getSabor(): float { return $this->sabor; }
-    public function getTamanho(): float { return $this->tamanho; }
-    public function getPreco(): float { return $this->preco; }
-
-    public function setPreco(float $novoPreco): void {
-        if($novoPreco > 0) {
+    public function setPreco(float $novoPreco): void
+    {
+        if ($novoPreco > 0) {
             $this->preco = $novoPreco;
         }
     }
