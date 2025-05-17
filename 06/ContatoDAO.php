@@ -12,25 +12,43 @@ class ContatoDAO
         $this->db = Database::getInstance();        
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $stmt = $this->db->query("SELECT * FROM contatos");
-        $contatos = [];
+        $contatos = []; // inicializa um array vazio
 
         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
         {
-            $contatos [] = new Contato( $row['id'], $row['nome']);
+            $contatos[] = new Contato($row['id'], $row['nome'], $row['telefone'], $row['email'], $row['endereco']);
         }
-        return $contatos;                                                                                         
+
+        return $contatos;
+    }
+
+    public function getById(int $id): ?contato{
+        $stmt = $this->db->prepare("SELECT * FROM agenda.contatos WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row? new Contato($row['id'], $row['nome'], $row['telefone'], $row['email'], $row['endereco']): null;
     }
 
     public function create(Contato $contato) 
     {
-        $sql = "INSERT INTO contatos (nome) VALUES (:nome)";
+        $sql = "INSERT INTO contatos (nome, telefone, email, endereco) VALUES 
+	        (:nome, :telefone, :email, :endereco)";
         $stmt = $this->db->prepare($sql);
 
         $nome = $contato->getNome();
+        $telefone = $contato->getTelefone();
+        $email = $contato->getEmail();
+        $endereco = $contato->getEndereco();
 
         $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':telefone', $telefone);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':endereco', $endereco);
         $stmt->execute();
     }
 }
