@@ -20,24 +20,18 @@ $contatos = $dao->getAll();
     
     <table border="1" cellpadding="5">
         <tr>
-            <!-- <th>ID</th> -->
             <th>Nome</th>
             <th>Telefone</th>
-            <!-- <th>Email</th>
-            <th>Endereco</th> -->
             <th>Ações</th>
         </tr>
         <?php foreach ($contatos as $c): ?>
             <tr>
-                <!-- <td><?= $c->getId() ?></td> -->
                 <td><?= $c->getNome() ?></td>
                 <td><?= $c->getTelefone() ?></td>
-                <!-- <td><?= $c->getEmail() ?></td>
-                <td><?= $c->getEndereco() ?></td> -->
                 <td>
-                    <a href="contato_details.php?id=<?=$c->getId() ?>">Detalhes</a>
+                    <a href="contato_details.php?id=<?= $c->getId() ?>">Detalhes</a>
                     <a href="#">Editar</a>
-                    <a href="#">Excluir</a>
+                    <a href="contato_delete.php?id=<?= $c->getId() ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
