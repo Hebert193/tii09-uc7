@@ -32,7 +32,7 @@ if(!$contato)
     <p><strong>Nome: </strong><?= $contato->getNome() ?></p>
     <p><strong>Telefone: </strong><?= $contato->getTelefone() ?></p>
     <p><strong>Email: </strong><?= $contato->getEmail() ?></p>
-    <p><strong>Endereço: </strong><?= $contato->getEndereco() ?? 'NÃO INFORMADO'?></p>
+    <p><strong>Endereço: </strong><?= $contato->getEndereco() ?? 'NÃO INFORMADO' ?></p>
 
     <br>
     <a href="index.php">Voltar</a>

@@ -30,7 +30,7 @@ $contatos = $dao->getAll();
                 <td><?= $c->getTelefone() ?></td>
                 <td>
                     <a href="contato_details.php?id=<?= $c->getId() ?>">Detalhes</a>
-                    <a href="#">Editar</a>
+                    <a href="contato_form.php?id=<?= $c->getId() ?>">Editar</a>
                     <a href="contato_delete.php?id=<?= $c->getId() ?>">Excluir</a>
                 </td>
             </tr>
