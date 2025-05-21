@@ -19,21 +19,16 @@ class Pizza
     {
         return $this->id;
     }
-    public function getSabor(): string
-    {
+    public function getSabor(): string{
         return $this->sabor;
     }
-    public function getTamanho(): string
-    {
+    public function getTamanho(): string{
         return $this->tamanho;
     }
-    public function getPreco(): float
-    {
+    public function getPreco(): float{
         return $this->preco;
     }
-
-    public function setPreco(float $novoPreco): void
-    {
+    public function setPreco(float $novoPreco): void{
         if ($novoPreco > 0) {
             $this->preco = $novoPreco;
         }

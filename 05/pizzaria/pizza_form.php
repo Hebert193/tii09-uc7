@@ -14,6 +14,7 @@ if(isset($_POST['sabor']) && isset($_POST['tamanho']) && isset($_POST['preco']))
     $dao->create($pizza);
 
     header("Location: index.php");
+    exit();
 }
 
 ?>
@@ -38,9 +39,8 @@ if(isset($_POST['sabor']) && isset($_POST['tamanho']) && isset($_POST['preco']))
         <label>Preco</label>
         <input type="number" name="preco" required>
 
-        <button type="submit">Salvar</button>
+        <button type="submit">Salvar</button><br>
+        <a href="index.php">Cancelar</a>
     </form>
-    <br>
-    <a href="index.php">Cancelar</a>
 </body>
 </html>

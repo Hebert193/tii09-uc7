@@ -18,13 +18,23 @@ $pizzas = $bd->getAll();
     <h2>Lista de Pizzas</h2>
 
     <table border="1" cellpading="5">
-        <tr><th>ID</th><th>SABOR</th><th>TAMANHO</th><th>PREÇO</th></tr>
+        <tr>
+            <th>ID</th>
+            <th>SABOR</th>
+            <th>TAMANHO</th>
+            <th>PREÇO</th>
+        </tr>
         <?php foreach($pizzas as $p): ?>
             <tr>
                 <td><?= $p->getId() ?></td>
                 <td><?= $p->getSabor() ?></td>
                 <td><?= $p->getTamanho() ?></td>
                 <td><?= $p->getPreco() ?></td>
+                <td>
+                    <a href="">Detalhes</a>
+                    <a href="">editar</a>
+                    <a href="">excluir</a>
+                </td>
             </tr>
         <?php endforeach; ?>
     </table>
