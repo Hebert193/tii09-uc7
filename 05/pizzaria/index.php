@@ -17,6 +17,8 @@ $pizzas = $bd->getAll();
 <body>
     <h2>Lista de Pizzas</h2>
 
+    <a href="pizza_form.php">Cadastrar Nova</a>
+
     <table border="1" cellpading="5">
         <tr>
             <th>ID</th>
@@ -33,12 +35,10 @@ $pizzas = $bd->getAll();
                 <td>
                     <a href="">Detalhes</a>
                     <a href="">editar</a>
-                    <a href="">excluir</a>
+                    <a href="pizza_delete.php">excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-    <br>
-    <a href="pizza_form.php">Cadastrar Nova</a>
 </body>
 </html>
