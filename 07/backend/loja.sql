@@ -11,3 +11,8 @@ CREATE TABLE IF NOT EXISTS produtos (
     dataDeCadastro DATE NOT NULL,
     dataDeValidade DATE
 );
+-- SQL INJECTION
+-- 'Teste2', 0, 0, '2025-01-01', '2025-12-12'); DROP TABLE produtos --
+
+INSERT INTO produtos (nome, preco, ativo, dataDeCadastro, dataDeValidade) VALUES
+('Teste2', 0, 0, '2025-01-01', '2025-12-12');
