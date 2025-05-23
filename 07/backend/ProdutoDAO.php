@@ -75,7 +75,7 @@ class ProdutoDAO
         $this->db->query($sql);
     }
 
-    public function update(Produto $produto): void 
+    public function update(Produto $produto): void
     {
         $sql = "UPDATE produtos SET nome = :nome, preco = :preco, ativo = :ativo, dataDeCadastro = :cadastro, dataDeValidade = :validade WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -90,7 +90,11 @@ class ProdutoDAO
         ]);
     }    
 
-    public function delete(int $id): void {}
+    public function delete(int $id): void
+    {
+        $stmt = $this->db->prepare("DELETE FROM produtos WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+    }
 }
 
 /*
