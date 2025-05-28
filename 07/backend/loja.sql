@@ -11,8 +11,12 @@ CREATE TABLE IF NOT EXISTS produtos (
     dataDeCadastro DATE NOT NULL,
     dataDeValidade DATE
 );
--- SQL INJECTION
--- 'Teste2', 0, 0, '2025-01-01', '2025-12-12'); DROP TABLE produtos --
 
-INSERT INTO produtos (nome, preco, ativo, dataDeCadastro, dataDeValidade) VALUES
-('Teste2', 0, 0, '2025-01-01', '2025-12-12');
+-- CRIA A TABELA DE CLIENTES
+CREATE TABLE IF NOT EXISTS clientes (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT 1,
+    dataDeNascimento DATE NOT NULL
+);

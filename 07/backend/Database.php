@@ -8,5 +8,5 @@ class Database
     }
 }
 
-print_r(Database::getInstance()->query("select * from produtos"));
+// print_r(Database::getInstance()->query("select * from produtos"));
 ?>
