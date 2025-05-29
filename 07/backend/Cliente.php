@@ -3,28 +3,28 @@
 class Cliente{
     private ?int $id;
     private string $nome;
-    private float $cpf;
+    private string $cpf;
     private bool $ativo;
-    private string $dataNacimento;
+    private string $DataDeNascimento;
 
-    public function __construct(?int $id, string $nome, float $cpf, bool $ativo, string $dataNacimento )
+    public function __construct(?int $id, string $nome, string $cpf, bool $ativo, string $DataDeNascimento )
     {
         $this->id = $id;
         $this->nome = $nome;
         $this->cpf = $cpf;
         $this->ativo = $ativo;
-        $this->dataNacimento = $dataNacimento;
+        $this->DataDeNascimento = $DataDeNascimento;
     }
 
     public function getId(): ?int { return $this->id; }
     public function getNome(): string { return $this->nome; }
-    public function getCPF(): float { return $this->cpf; }
+    public function getCPF(): string { return $this->cpf; }
     public function getAtivo(): bool { return $this->ativo; }
-    public function getDataNacimento(): string { return $this->dataNacimento; }
+    public function getDataDeNascimento(): string { return $this->DataDeNascimento; }
 
     public function setNome(string $nome) { $this->nome = $nome; }
-    public function setCPF(float $cpf) { $this->$cpf = $cpf; }
+    public function setCPF(string $cpf) { $this->$cpf = $cpf; }
     public function setAtivo(bool $ativo) { $this->ativo = $ativo; }
-    public function setDataNacimento(string $dataNacimento) { $this->dataNacimento = $dataNacimento; }
+    public function setDataDeNascimento(string $DataDeNascimento) { $this->DataDeNascimento = $DataDeNascimento; }
 
 }

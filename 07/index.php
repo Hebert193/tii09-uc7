@@ -1,8 +1,11 @@
 <?php
 require_once './backend/ProdutoDAO.php';
+require_once './backend/ClienteDAO.php';
 
 $dao = New ProdutoDAO();
 $produtos = $dao->getAll();
+$dao = new ClienteDAO();
+$cliente = $dao->getAll();
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +50,7 @@ $produtos = $dao->getAll();
             <td>CPF</td>
             <td>Ações</td>
         </tr>
-        <!-- <?php foreach($clientes as $cli): ?> -->
+        <!-- <?php foreach($cliente as $cli): ?> -->
         <tr>
             <td><?= $cli->getNome() ?></td>
             <td><?= $cli->getCpf() ?></td>

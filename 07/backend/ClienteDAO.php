@@ -3,7 +3,7 @@
 require_once 'Cliente.php';
 require_once 'Database.php';
 
-class ProdutoDAO
+class ClienteDAO
 {
     private $db;
 
@@ -14,7 +14,7 @@ class ProdutoDAO
 
     public function getAll(): array
     {
-        $resultadoDoBanco = $this->db->query("SELECT * FROM cliente");
+        $resultadoDoBanco = $this->db->query("SELECT * FROM clientes");
         $cliente = [];
 
         while($row = $resultadoDoBanco->fetch(PDO::FETCH_ASSOC)) {
@@ -23,7 +23,7 @@ class ProdutoDAO
                 $row['nome'],
                 $row['cpf'],
                 $row['ativo'],
-                $row['dataNacimento']
+                $row['DataDeNascimento']
             );
         }
 
@@ -32,7 +32,7 @@ class ProdutoDAO
 
     public function getById(int $id): ?Cliente
     {
-        $sql = "SELECT * FROM cliente WHERE id = :id";
+        $sql = "SELECT * FROM clientes WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);        
         $stmt->execute([':id' => $id]);
@@ -40,9 +40,63 @@ class ProdutoDAO
         return $row? new Cliente(
             $row['id'],
             $row['nome'],
-            $row['preco'],
+            $row['cpf'],
             $row['ativo'],
-            $row['dataDeCadastro'],
-            $row['dataDeValidade']
+            $row['DataDeNascimento']
         ) : null;
     }
+
+    public function create(Cliente $cliente): void 
+    {
+        $sql = "INSERT INTO clientes (nome, cpf, ativo, DataDeNascimento) VALUES
+                (:nome, :cpf, :ativo, :Nascimento)";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':nome' => $cliente->getNome(),            
+            ':cpf' => $cliente->getcpf(),            
+            ':ativo' => $cliente->getAtivo(),            
+            ':Nascimento' => $cliente->getDataDeNascimento(),          
+        ]);
+    }
+
+    public function createInseguro(Cliente $cliente): void
+    {
+        $sql = "INSERT INTO clientes (nome, cpf, ativo, DataDeNascimento) VALUES
+            ({$cliente->getNome()}, 
+            {$cliente->getcpf()}, 
+            {$cliente->getAtivo()},
+            '{$cliente->getDataDeNascimento()}')";
+
+        $this->db->query($sql);
+    }
+
+    public function update(Cliente $cliente): void
+    {
+        $sql = "UPDATE clientes SET nome = :nome, cpf = :cpf, ativo = :ativo, DataDeNascimento = :Nascimento";
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':id' => $cliente->getId(),
+            ':nome' => $cliente->getNome(),            
+            ':cpf' => $cliente->getcpf(),            
+            ':ativo' => $cliente->getAtivo(),            
+            ':Nascimento' => $cliente->getDataDeNascimento(),            
+        ]);
+    }    
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->db->prepare("DELETE FROM clientes WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+    }
+}
+
+/*
+// SQL INJECTION:
+$dao = new clienteDAO();
+$cliente = new Cliente(null, "'Teste2', 0, 0, '2025-10-10', '2025-12-12'); DROP TABLE clientes --", 9.99, 1, '2025-01-01', '2025-12-12');
+
+$dao->createInseguro($cliente);
+*/
+
