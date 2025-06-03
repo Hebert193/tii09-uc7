@@ -30,7 +30,7 @@ class Cliente implements JsonSerializable
             'nome' => $this->nome,
             'cpf' => $this->cpf,
             'dataDeNascimento' => $this->dataDeNascimento,
-            'ativo' => $this->cpf,
+            'ativo' => $this->ativo,
         ];
     }
 }
