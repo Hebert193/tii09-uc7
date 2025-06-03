@@ -6,6 +6,7 @@ require_once __DIR__ . '/../dao/ClienteDAO.php';
 $dao = new ClienteDAO();
 $action = $_GET['action'] ?? null;
 $id = isset($_GET['id']) ? $_GET['id'] : null;
+$inputBody = json_decode(file_get_contents('php://input'), true);
 
 switch ($action) {
     case 'listar': // GET
@@ -28,17 +29,53 @@ switch ($action) {
         break;
 
     case 'cadastrar': // POST
-        echo json_encode("Chamou o cadastrar");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $inputBody) {
+            $cli = new Cliente(null, $inputBody['nome'], $inputBody['cpf'], $inputBody['dataDeNascimento'], $inputBody['ativo']);
+            if($dao->create($cli))
+            {
+                http_response_code(201);
+                echo json_encode(['message' => 'Cliente cadastrado com sucesso']);
+            }
+            else
+            {
+                http_response_code(500);
+                echo json_encode(['error' => 'Cliente não cadastrado!']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'Dados inválidos ou método incorreto']);
+        }
         break;
 
-    case 'atualizar': // PUT
-        echo json_encode("Chamou o atualizar");
-        break;
+        case 'atualizar': // PUT
+            if ($_SERVER['REQUEST_METHOD'] === 'PUT' && $id && $inputBody) {
+                $cli = new Cliente($id, $inputBody['nome'], $inputBody['cpf'], $inputBody['dataDeNascimento'], $inputBody['ativo']);
+                if ($dao->update($cli)) 
+                {
+                    http_response_code(201);
+                    echo json_encode(['message' => 'Cliente atualizado com sucesso']);
+                } else {
+                    http_response_code(500);
+                    echo json_encode(['error' => 'Erro ao atualizar cliente!']);
+                }
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'Dados inválidos ou método incorreto']);
+            }
+            break;
+        
 
     case 'excluir': // DELETE
-        if ($id) 
-        {
-            echo json_encode("Chamou o excluir");
+        if ($id && $_SERVER['REQUEST_METHOD'] == 'DELETE') {
+            if ($dao->delete($id)) {
+                echo json_encode(['message' => 'Cliente excluído!']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['error' => 'Erro ao excluir!']);
+            }
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'ID não fornecido ou método incorreto']);
         }
         break;
 
