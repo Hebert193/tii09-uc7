@@ -14,9 +14,12 @@ class ProdutoDAO
     public function getAll(): array
     {
         $stmt = $this->db->query("SELECT * FROM produtos");
-        
+        $produtosData = $stmt->fetchAll();
         $produtos = [];
         
+        foreach($produtosData as $data){
+            $produtos[] = new Produto($data['id'], $data['nome'], $data['preco'], $data['ativo'], $data['dataDeCadastro'], $data['dataDeValidade']);
+        }
         return $produtos;
     }
 
@@ -25,7 +28,10 @@ class ProdutoDAO
         $stmt = $this->db->prepare("SELECT * FROM produtos WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        
+        $data = $stmt->fetch();
+        if($data) {
+            return new Produto($data['id'], $data['nome'], $data['preco'], $data['ativo'], $data['dataDeCadastro'], $data['dataDeValidade']);
+        }
         return null;
     }
 
@@ -35,7 +41,13 @@ class ProdutoDAO
                 VALUES (:nome, :preco, :ativo, :dataDeCadastro, :dataDeValidade)";
         $stmt = $this->db->prepare($sql);
         
-        return $stmt->execute();
+        return $stmt->execute([
+            ':nome' => $produto->getNome(),
+            ':preco'=> $produto->getPreco(),
+            ':ativo'=> $produto->getAtivo()? 1 : 0 ,
+            ':dataDeCadastro'=> $produto->getDataDeCadastro(),
+            ':dataDeValidade'=> $produto->getDataDeValidade()
+        ]);
     }
 
     public function update(Produto $produto): bool
@@ -46,13 +58,20 @@ class ProdutoDAO
                 WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         
-        return $stmt->execute();
+        return $stmt->execute([
+            ':nome' => $produto->getNome(),
+            ':preco'=> $produto->getPreco(),
+            ':ativo'=> $produto->getAtivo()? 1 : 0 ,
+            ':dataDeCadastro'=> $produto->getDataDeCadastro(),
+            ':dataDeValidade'=> $produto->getDataDeValidade()
+        ]);
     }
 
     public function delete(int $id): bool
     {
         $stmt = $this->db->prepare("DELETE FROM produtos WHERE id = :id");
-        return true;
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 ?>
