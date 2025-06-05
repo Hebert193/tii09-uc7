@@ -59,6 +59,7 @@ class ProdutoDAO
         $stmt = $this->db->prepare($sql);
         
         return $stmt->execute([
+            ':id' => $produto->getId(),
             ':nome' => $produto->getNome(),
             ':preco'=> $produto->getPreco(),
             ':ativo'=> $produto->getAtivo()? 1 : 0 ,
