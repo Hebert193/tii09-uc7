@@ -1,3 +1,7 @@
+-- Se for realmente criar um BD
+CREATE DATABASE IF NOT EXISTS usuarios;
+USE usuarios;
+
 CREATE TABLE IF NOT EXISTS usuario(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
