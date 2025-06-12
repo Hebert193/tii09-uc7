@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+$islogged = isset($_SESSION['token']);
 
 ?>
 
@@ -6,7 +9,12 @@
 
 <nav>
     <a href="index.php">Home</a>
-    <a href="index.php">Login</a>
-    <a href="cadastro.php">Cadastrar</a>
+    <?php if ($islogged):?>
+        <a href="usuario.php">minha conta</a>
+        <a href="cadastro.php">sair</a>
+    <?php else: ?>
+        <a href="index.php">Login</a>
+        <a href="cadastro.php">Cadastrar</a>
+    <?php endif; ?>
 </nav>
 <p>Bem-vindo ao sistema!</p>
